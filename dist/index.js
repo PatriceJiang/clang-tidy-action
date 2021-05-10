@@ -10646,7 +10646,7 @@ function run() {
             const diagList = yield diagnostics_1.parseReplacementsFile(fixesFile);
             // const diagsMap = collectDiagnostic(diagList);
             const cnt = diagList.length;
-            const useLog = true;
+            const useLog = core.getInput("useLog") === "true";
             if (useLog) {
                 // 使用 log 输出错误
                 for (const diag of diagList) {

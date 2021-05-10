@@ -14,6 +14,9 @@ inputs:
   error-limit:
     description: 'Max number of error annotations'
     required: true
+  useLog:
+    description: 'Read lint result for stdio'
+    required: false
 runs:
   using: 'node12'
   main: 'dist/index.js'
