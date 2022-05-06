@@ -5,8 +5,11 @@ inputs:
   fixesFile:
     description: "Path to the replacement file produced by -export-fixes"
     required: true
-  repo-token:
+  github-token:
     description: "Github Token"
+    required: true
+  repo-token:
+    description: "Repo Token"
     required: true
   noFailOnIssue:
     description: "Prevent failures"

@@ -1,9 +1,10 @@
 import * as github from "@actions/github";
 import * as core from "@actions/core";
 
-const token = core.getInput("repo-token", {required: true});
+const githubToken = core.getInput("github-token", {required: true});
+const authToken = core.getInput("repo-token", {required: true});
 const errorLimit = core.getInput("error-limit", {required: true});
-const octokit = github.getOctokit(token);
+const octokit = github.getOctokit(githubToken, {auth: authToken});
 const pullRequest = github.context.payload.pull_request;
 
 const getPrNumber = (): number => {
