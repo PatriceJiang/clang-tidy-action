@@ -4,7 +4,7 @@ import * as core from "@actions/core";
 const githubToken = core.getInput("github-token", {required: true});
 const authToken = core.getInput("repo-token", {required: true});
 const errorLimit = core.getInput("error-limit", {required: true});
-const octokit = github.getOctokit(githubToken, {auth: authToken});
+const octokit = github.getOctokit(githubToken /*, {auth: authToken}*/);
 const pullRequest = github.context.payload.pull_request;
 
 const getPrNumber = (): number => {
@@ -32,7 +32,7 @@ export default {
 	PR_NUMBER: getPrNumber(),
 	CHECK_NAME: "ClangTidy report",
 	GITHUB_WORKSPACE: process.env.GITHUB_WORKSPACE,
-	TOKEN: token,
+	TOKEN: authToken,
 	OCTOKIT: octokit,
 	SHA: getSha(),
 	ERROR_LIMIT: parseInt(errorLimit),
