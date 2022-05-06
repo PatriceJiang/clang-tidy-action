@@ -1,22 +1,22 @@
-name: 'clang-tidy-action'
-description: 'Exports clang-tidy diagnostics to inline comments.'
-author: 'asarium'
+name: "clang-tidy-action"
+description: "Exports clang-tidy diagnostics to inline comments."
+author: "asarium"
 inputs:
   fixesFile:
-    description: 'Path to the replacement file produced by -export-fixes'
+    description: "Path to the replacement file produced by -export-fixes"
     required: true
-  repo-token: 
-    description: 'Github Token'
+  repo-token:
+    description: "Github Token"
     required: true
   noFailOnIssue:
-    description: 'Prevent failures'
+    description: "Prevent failures"
     required: false
   error-limit:
-    description: 'Max number of error annotations'
+    description: "Max number of error annotations"
     required: true
   useLog:
-    description: 'Read lint result for stdio'
-    required: false
+    description: "Read lint result for stdio"
+    required: true
 runs:
-  using: 'node12'
-  main: 'dist/index.js'
+  using: "node12"
+  main: "dist/index.js"

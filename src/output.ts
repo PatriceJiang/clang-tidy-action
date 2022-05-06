@@ -1,4 +1,3 @@
-import * as core from "@actions/core";
 
 /* eslint-disable no-console */
 function escapeData(s: string): string {

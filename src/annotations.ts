@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable object-shorthand */
 /**
  * Disable ESLint camel case check and the
@@ -22,7 +23,7 @@ async function delayMs(ms: number): Promise<void> {
 	});
 }
 
-export async function report_annotations(result: {success: boolean; diags: Diagnostic[]}): Promise<void> {
+export async function reportAnnotations(result: {success: boolean; diags: Diagnostic[]}): Promise<void> {
 	const conclusion = result.success ? "success" : "failure";
 	const currentTimestamp = new Date().toISOString();
 
@@ -130,9 +131,8 @@ export async function report_annotations(result: {success: boolean; diags: Diagn
 		// }
 	} catch (err) {
 		// Catch any errors from API calls and fail the action
-		core.setFailed(
-			err.message ? err.message : "Error annotating files in the pull request from the ESLint report.",
-		);
+		const e = (err as unknown) as any;
+		core.setFailed(e.message ? e.message : "Error annotating files in the pull request from the ESLint report.");
 		process.exit(1);
 	}
 }

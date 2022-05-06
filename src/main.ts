@@ -1,13 +1,13 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as core from "@actions/core";
 import * as output from "./output";
-import { relative } from "path";
-import { parseReplacementsFile, Diagnostic } from "./diagnostics";
+import {relative} from "path";
+import {parseReplacementsFile, Diagnostic} from "./diagnostics";
 
-import { report_annotations } from "./annotations";
+import {reportAnnotations} from "./annotations";
 
-function collectDiagnostic (diags: Diagnostic[]): Map<string, Diagnostic[]> {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function collectDiagnostic(diags: Diagnostic[]): Map<string, Diagnostic[]> {
 	const map: Map<string, Diagnostic[]> = new Map();
 
 	for (const d of diags) {
@@ -26,7 +26,7 @@ function collectDiagnostic (diags: Diagnostic[]): Map<string, Diagnostic[]> {
 	return map;
 }
 
-async function run (): Promise<void> {
+async function run(): Promise<void> {
 	try {
 		core.debug("Start");
 
@@ -44,6 +44,7 @@ async function run (): Promise<void> {
 			// 使用 log 输出错误
 			for (const diag of diagList) {
 				/// do not use logs, warnings are limited to 10
+				core.debug(`Error on file ${diag.filePath}`);
 				output.fileError(
 					`${diag.message} (${diag.name})`,
 					relative(process.cwd(), diag.filePath),
@@ -60,14 +61,14 @@ async function run (): Promise<void> {
 		} else {
 			// 使用 Github Check API 输出错误
 			try {
-				await report_annotations({success: noFailure ? true : cnt === 0, diags: diagList});
+				await reportAnnotations({success: noFailure ? true : cnt === 0, diags: diagList});
 			} catch (e) {
-				core.error(e);
-				core.setFailed(e.message);
+				core.error((e as unknown) as any);
+				core.setFailed(((e as unknown) as any).message);
 			}
 		}
-	} catch (error) {
-		core.setFailed(error.message);
+	} catch (e) {
+		core.setFailed(((e as unknown) as any).message);
 	}
 }
 
