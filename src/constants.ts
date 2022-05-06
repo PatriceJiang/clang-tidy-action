@@ -21,6 +21,8 @@ const getSha = (): string => {
 
 	return pullRequest.head.sha;
 };
+core.info("output octokit:");
+core.info(JSON.stringify(octokit));
 
 export default {
 	OWNER: github.context.repo.owner,
